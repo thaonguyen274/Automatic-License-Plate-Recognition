@@ -3,7 +3,7 @@
 
 Thuật toán nhận dạng biển số xe bao gồm 3 bước:
 
-* Xác định vùng chứa biển số xe (Sủ dụng YOLOv8)
+* Xác định vùng chứa biển số xe (Sử dụng YOLOv8)
 * Xác định biển số là biển 1 dòng hay 2 dòng.
 * Sử dụng module text recognition (Sử dụng backbone RCNN và CTC) để nhận dạng biển số xe.
 
