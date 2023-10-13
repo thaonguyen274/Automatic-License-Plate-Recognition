@@ -13,17 +13,8 @@ Nhược điểm:
 
 ## DATASET
 
-Dataset là tập dữ liệu công khai được thu thập trên Roboflow, gồm 2000 ảnh xe máy, ô tô đi qua khu vực gửi xe trong bãi đỗ xe. Ảnh được ghi lại trong nhiều điều kiện khác nhau: ánh sáng tốt, thiếu sáng, bị đèn chiếu, lóa,... 
+Dataset là tập dữ liệu công khai được thu thập trên Roboflow, gồm ảnh xe máy, ô tô đi qua khu vực gửi xe trong bãi đỗ xe. Ảnh được ghi lại trong nhiều điều kiện khác nhau: ánh sáng tốt, thiếu sáng, bị đèn chiếu, lóa,... Bên cạnh đó, hình ảnh xe ô tô đi qua trạm thu phí cũng được thu thạp thêm để tăng sự đa dạng cho dữ liệu. 
 
-```
-!pip install roboflow --quiet
-
-from roboflow import Roboflow
-rf = Roboflow(api_key="Tno3ltYs1pK7NVjkI3Ke")
-project = rf.workspace("license-plate-detect").project("new_biensoxe")
-dataset = project.version(3).download("yolov8")
-
-```
 
 Cấu trúc dataset:
 ```
@@ -44,8 +35,13 @@ Cấu trúc dataset:
 ├── best.pt 
 ├── model.py 
 ├── ocrmodule.py 
-├── test_plate.py 
-├── train.ipynb
+├── predict_plate.py 
+├── cer.ipynb
+├── MODEL
+├── ground_truth 
+├── video 
+
+
 
 ```
 
@@ -54,8 +50,11 @@ Cấu trúc dataset:
 * best.pt: file mô hình thuật toán phát hiện biển số xe.
 * model.py: file định nghĩa thuật toán text recognition.
 * ocrmodule.py: file chứa code inference thuật toán text recognition.
-* test_plate.py: file main chính chạy end-to-end inference của project. 
-* train.ipynb: file notebook dùng để train mô hình YOLOv8, lấy được file weight của mô hình. 
+* predict_plate.py: file main chính chạy end-to-end inference của project. 
+* cer.ipynb: file tính và in kết qủa CER metrics của 100 ảnh lấy từ tập ``` ground_truth``` 
+* Model: thư mục chứa code training mô hình YOLOv8, kết quả training được lưu trong file ```ultralytics/runs```
+* ground_truth: Ảnh biển số xe và file txt đính kèm thông tin xuất hiện trong biển 
+* video: dùng để test cho phần ``` predict_plate.py```
 
 ## Install Enviroments 
 
@@ -64,10 +63,12 @@ pip install -r requirements.txt
 ``` 
 
 ##  Chạy thuật toán
-Có thể chạy ngay bằng câu lệnh, trước đó cần thay thế path file ảnh muốn đọc trong file 
+Có thể chạy ngay bằng câu lệnh, trước đó cần thay thế path file video muốn đọc trong file 
 
 ```
-python test_plate.py
+python predict_plate.py
 ```
 ## Kết quả 
 
+![alt-text](/home/ubuntu/Documents/ALPR/video_1.gif)
+![alt-text](/home/ubuntu/Documents/ALPR/video.gif)
